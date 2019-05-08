@@ -42,6 +42,10 @@ library(ggplot2)
 library(choroplethr)
 library(choroplethrMaps)
 library(choroplethrZip)
+# install.packages("devtools")
+# library(devtools)
+# install_github('arilamstein/choroplethrZip@v1.4.0')
+
 library(GGally)
 library(lubridate)
 library(zoo)
@@ -53,6 +57,11 @@ library(zipcode)
 library(leaflet)
 library(extracat)
 library(gridExtra)
+
+library(data.table)
+```
+
+```{r}
 source("https://raw.githubusercontent.com/iascchen/VisHealth/master/R/calendarHeat.R")
 options(scipen=999)
 #http://insideairbnb.com/get-the-data.html
