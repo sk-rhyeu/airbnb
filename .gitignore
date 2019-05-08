@@ -4,5 +4,11 @@
 .Ruserdata
 .data/
 .videos/
+.csv
+.zip
+.pdf
+.csv.zip
 *.csv
 *.zip
+*.pdf
+
