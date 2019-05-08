@@ -1,3 +1,0 @@
-.data/
-.videos/
-.final_report/
