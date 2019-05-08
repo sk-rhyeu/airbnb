@@ -13,6 +13,19 @@
 *.pdf
 .Rproj
 
+data/calendar2015.csv.zip
 
+data/calendar.csv.zip
+
+data/calendar2017.csv.zip
+
+data/reviews1.csv.zip
+
+data/listings.csv.zip
+
+data/reviews2.csv.zip
+
+data/sampledreviews.csv.zip
+
+data/calendar2016.csv.zip
   
-
