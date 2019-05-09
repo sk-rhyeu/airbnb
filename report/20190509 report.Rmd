@@ -7,3 +7,39 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+
+## Airbnb data 개요
+
+- 주소 : http://insideairbnb.com/get-the-data.html
+- 라이센스 : copyright : CC0 1.0 Universal (CC0 1.0) Public Domain Dedication - 비상업적 / 상업적 이용 가능(No copy right)
+- 24개국 78개 도시 데이터 제공
+j
+```{r, echo=FALSE}
+cities <- read.csv("../data/cities.csv", header=T, encoding = "UTF-8")
+str(cities)
+```
+
+```{r, echo=FALSE}
+cities %>% 
+    group_by(continent) %>% 
+    summarise(count_continent=n()) %>% 
+    arrange(desc(count_continent)) %>% 
+    kable()
+```
+
+```{r, echo=FALSE}
+cities %>% 
+    group_by(country, continent) %>% 
+    summarise(count_city=n()) %>% 
+    arrange(desc(count_city)) %>% 
+    kable()
+```
+
+
+
