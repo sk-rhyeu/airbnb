@@ -55,7 +55,7 @@ library(scales)
 library(stringr)
 library(zipcode)
 library(leaflet)
-library(extracat)
+# library(extracat)
 library(gridExtra)
 
 library(data.table)
@@ -65,12 +65,12 @@ library(data.table)
 source("https://raw.githubusercontent.com/iascchen/VisHealth/master/R/calendarHeat.R")
 options(scipen=999)
 #http://insideairbnb.com/get-the-data.html
-listings <- read_csv("./data/listings.csv")
-reviews1 <- read_csv("./data/reviews1.csv")
-reviews2 <- read_csv("./data/reviews2.csv")
+listings <- fread("../data/listings.csv")
+reviews1 <- fread("../data/reviews1.csv")
+reviews2 <- fread("../data/reviews2.csv")
 reviews <- rbind(reviews1, reviews2)
-calendar <- read_csv("./data/calendar.csv")
-neighborhood <- read_csv("./data/neighbourhoods.csv")
+calendar <- fread("../data/calendar.csv")
+# neighborhood <- fread(".l./data/neighbourhoods.csv")
 ```
 
 *** 
@@ -119,16 +119,15 @@ The data also had null values. To preserve all the information, we imputed or dr
 
 We construct a ```visna``` plot to analyze the missing values for the variables that we would be using in our exploratory analysis.
 
-
+# 컬럼명 바꾸기
 ```{r fig.height=5, echo=FALSE, message=FALSE, warning=FALSE}
-listingdf1 <- read.csv('./data/listings.csv')
-missingdata<-listingdf1
+missingdata<-listings
 missingdata[missingdata == ""] <- NA
 missingdata <- missingdata %>% select(host_is_superhost,neighbourhood_group_cleansed,review_scores_rating,host_response_time,name,host_since,zipcode)
 
 missingdata <- missingdata %>% rename(!!"Host is superhost" := host_is_superhost,!!"Neighbourhood" := neighbourhood_group_cleansed,!!"Response time" := host_response_time,!!"Listing Name" := name,!!"Host since" := host_since, !!"Zipcode" := zipcode,!!"Review scores rating" := review_scores_rating)
 
-visna(missingdata,sort="c", mar.col = c("#e06f69","#357b8a"))
+# visna(missingdata,sort="c", mar.col = c("#e06f69","#357b8a"))
 ```
 
 Few observations from the plot:
@@ -156,7 +155,7 @@ This section will explore various variables from our dataset using spatial visua
 ```{r Spatial Data 1.1, echo=FALSE, message=FALSE, warning=FALSE}
 
 #Reading Listings Data
-listingdf <- read.csv('./data/listings.csv')
+listingdf <- listings
 
 #Creating Listings across NYC
 leaflet(listingdf) %>%
@@ -354,9 +353,9 @@ After observing the pattern in the demand, we wanted to investigate whether the 
 
 ```{r Demand/Price Analysis 2.3, echo=FALSE, message=FALSE, warning=FALSE}
 
-calendar2016 <- read_csv("./data/calendar2016.csv")
-calendar2017 <- read_csv("./data/calendar2017.csv")
-calendar2018 <- read_csv("./data/calendar.csv")
+calendar2016 <- fread("../data/calendar2016.csv")
+calendar2017 <- fread("../data/calendar2017.csv")
+calendar2018 <- fread("../data/calendar.csv")
 
 combinedCalendar <- rbind(calendar2016, calendar2017, calendar2018)
 combinedCalendar$price <- as.numeric(gsub(",", "", substring(combinedCalendar$price, 2)))
@@ -367,7 +366,7 @@ groupedCalendarAll$year <- as.factor(as.character(groupedCalendarAll$year))
 groupedCalendarAll$commonYear <- ymd(groupedCalendarAll$commonYear)
 
 ggplot(groupedCalendarAll[year(groupedCalendarAll$date) >= 2017 & year(groupedCalendarAll$date) < 2019,], aes(commonYear, averagePrice)) +
-           geom_point(na.rm=TRUE, alpha=0.5, color = "#007A87") + geom_smooth(color = "#FF5A5F")+ facet_grid(~year)+
+           geom_point(na.rm=TRUE, alpha=0.5, color = "#007A87") + geom_smooth(color = "#FFO5A5F")+ facet_grid(~year)+
   ggtitle("Seasonality in Price",
           subtitle = "Average listing price across Months") +
   labs(x = "Month", y = "Average price across Listings") +
@@ -425,7 +424,7 @@ From the above calendar heatmap for 2018 - 2019, we can infer that January tends
 The dataset provides us with a ton of data, but nothing as insightful and close to the customer as their reviews/feedback. If mined properly, they can tell us a lot about the customer mindset, their expectations and how well those were met. For the final result to make sense, the review text data requires a lot of cleaning - eg. the words need to be stemmed, commas-fullstops-percentages etc need to be removed, common English words and stop words need to be removed etc.
 
 ```{r wordcloud 3.1, echo=FALSE, message=FALSE, warning=FALSE}
-sampledreviews <- read_csv('./data/sampledreviews.csv')
+sampledreviews <- fread('./data/sampledreviews.csv')
 
 splitsampledreviewscoloumn <- unlist(strsplit(as.character(sampledreviews$reviews), split=" "))
 reviewsWordDF <- data.frame("word" = splitsampledreviewscoloumn)
@@ -592,7 +591,7 @@ Our goal is to understand owners’ behavior with respect to these policies and 
 ```{r fig.width=10, echo=FALSE, message=FALSE, warning=FALSE }
 library(alluvial)
 library(readr)
-listingdf1 <- read_csv('./data/listings.csv')
+listingdf1 <- fread('./data/listings.csv')
 filteredColumns <- listingdf1 %>% select(instant_bookable,cancellation_policy, room_type,host_is_superhost)
 filteredColumns <- filteredColumns %>% filter(filteredColumns$host_is_superhost != "")
 filteredColumnsByFreq <-  filteredColumns %>% group_by(instant_bookable,cancellation_policy,room_type,host_is_superhost) %>% summarize(Freq = n())
