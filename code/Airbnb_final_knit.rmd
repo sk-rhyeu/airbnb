@@ -36,29 +36,32 @@ Static visualizations were also distributed such that each one of us gets to wor
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(choroplethr)
-library(choroplethrMaps)
+# update.packages(ask=F)
+
+library(needs)
+needs(readr)
+needs(dplyr)
+needs(ggplot2)
+needs(choroplethr)
+needs(choroplethrMaps)
 library(choroplethrZip)
 # install.packages("devtools")
-# library(devtools)
-# install_github('arilamstein/choroplethrZip@v1.4.0')
+# needs(devtools)
+install_github('arilamstein/choroplethrZip@v1.4.0')
 
-library(GGally)
-library(lubridate)
-library(zoo)
-library(scales)
-library(ggmap)
-library(scales)
-library(stringr)
-library(zipcode)
-library(leaflet)
-# library(extracat)
-library(gridExtra)
+needs(GGally)
+needs(lubridate)
+needs(zoo)
+needs(scales)
+needs(ggmap)
+needs(scales)
+needs(stringr)
+needs(zipcode)
+needs(leaflet)
+# needs(extracat)
+needs(gridExtra)
 
-library(data.table)
+needs(data.table)
 ```
 
 ```{r}

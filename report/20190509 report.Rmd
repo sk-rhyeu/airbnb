@@ -15,14 +15,13 @@ library(knitr)
 
 
 ## Airbnb data 개요
-
+- 'Inside Airbnb' 프로젝트에서 제공(Murray Cox 주도)
 - 주소 : http://insideairbnb.com/get-the-data.html
 - 라이센스 : copyright : CC0 1.0 Universal (CC0 1.0) Public Domain Dedication - 비상업적 / 상업적 이용 가능(No copy right)
 - 24개국 78개 도시 데이터 제공
 j
 ```{r, echo=FALSE}
 cities <- read.csv("../data/cities.csv", header=T, encoding = "UTF-8")
-str(cities)
 ```
 
 ```{r, echo=FALSE}
@@ -41,5 +40,16 @@ cities %>%
     kable()
 ```
 
+## 데이터셋 살펴보기
+- Exploratory Data Analysis and Visualization of Airbnb Dataset (NYC, 2018-12; Ankit Peshin, Sarang Gupta, Ankita Agrawal, Colombia University)
+- 링크 : https://github.com/Ankit-Peshin/airbnb
 
-
+### 주요 주제 - NYC Airbnb 가격, 평점, 이용률, 리뷰
+* How do prices of listings vary by location?
+* How does the demand for Airbnb rentals fluctuate across the year and over years?
+* Are the demand and prices of the rentals correlated?
+* What are the different types of properties in NYC? Do they vary by neighborhood?
+* What localities in NYC are rated highly by guests?
+* What makes a host Super host?
+* Do regular hosts and super hosts have different cancellation and booking policies?
+* Are there any common themes that can be identified from the free-text section of the reviews? What aspects of the rental experience do people like and what aspects do they abhor?
